@@ -22,7 +22,8 @@ public class App
                 result = multiChainCommand.getAddressCommand().getAddresses();
                 balance = multiChainCommand.getBalanceCommand().getTotalBalances();
                 permissions = multiChainCommand.getGrantCommand().listPermissions();
-                SendAssetFrame frame = new SendAssetFrame();
+                //SendAssetFrame frame = new SendAssetFrame();
+                OverViewFrame frame = new OverViewFrame();
                 frame.setVisible(true);
         } catch (MultichainException e) {
                 // TODO Auto-generated catch block
