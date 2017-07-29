@@ -41,7 +41,7 @@ public class SendAssetFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         amountField = new javax.swing.JTextField();
         sendAsset = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        closeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,7 +71,12 @@ public class SendAssetFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Close");
+        closeButton.setText("Close");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,7 +97,7 @@ public class SendAssetFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(sendAsset)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(closeButton)
                         .addGap(61, 61, 61))))
         );
         layout.setVerticalGroup(
@@ -113,7 +118,7 @@ public class SendAssetFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sendAsset)
-                    .addComponent(jButton1))
+                    .addComponent(closeButton))
                 .addGap(42, 42, 42))
         );
 
@@ -150,6 +155,10 @@ public class SendAssetFrame extends javax.swing.JFrame {
        System.out.println( "Success" );
 
     }//GEN-LAST:event_sendAssetActionPerformed
+
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_closeButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,7 +199,7 @@ public class SendAssetFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox addressComboBox;
     private javax.swing.JTextField amountField;
     private javax.swing.JTextField assetNameField;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton closeButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
