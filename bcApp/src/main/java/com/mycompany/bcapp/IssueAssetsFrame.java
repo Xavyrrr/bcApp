@@ -128,6 +128,7 @@ public class IssueAssetsFrame extends javax.swing.JFrame {
         } catch(Exception e){
             e.printStackTrace();
         }
+        this.setVisible(false);
     }//GEN-LAST:event_issueButtonActionPerformed
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed

@@ -152,8 +152,8 @@ public class SendAssetFrame extends javax.swing.JFrame {
        } catch(Exception e){
            e.printStackTrace();
        }
-       System.out.println( "Success" );
-
+       
+       this.setVisible(false);
     }//GEN-LAST:event_sendAssetActionPerformed
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed

@@ -31,6 +31,9 @@ public class OverViewFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        sendAssetWithFileButton = new javax.swing.JButton();
+        createStreamButton = new javax.swing.JButton();
+        seeStreambutton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,28 +58,60 @@ public class OverViewFrame extends javax.swing.JFrame {
             }
         });
 
+        sendAssetWithFileButton.setText("Send asset with file");
+        sendAssetWithFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendAssetWithFileButtonActionPerformed(evt);
+            }
+        });
+
+        createStreamButton.setText("Create streams");
+        createStreamButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createStreamButtonActionPerformed(evt);
+            }
+        });
+
+        seeStreambutton.setText("See streams");
+        seeStreambutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seeStreambuttonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(161, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sendAssetWithFileButton)
                     .addComponent(jButton3)
                     .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addGap(146, 146, 146))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(89, 89, 89)
+                        .addComponent(seeStreambutton))
+                    .addComponent(createStreamButton))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(jButton1)
-                .addGap(32, 32, 32)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(seeStreambutton))
+                .addGap(26, 26, 26)
                 .addComponent(jButton2)
-                .addGap(29, 29, 29)
+                .addGap(28, 28, 28)
                 .addComponent(jButton3)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(sendAssetWithFileButton)
+                .addGap(29, 29, 29)
+                .addComponent(createStreamButton)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         pack();
@@ -96,6 +131,21 @@ public class OverViewFrame extends javax.swing.JFrame {
         IssueAssetsFrame frame = new IssueAssetsFrame();
         frame.setVisible(true);// TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void sendAssetWithFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendAssetWithFileButtonActionPerformed
+        SendAssetWithFileFrame frame = new SendAssetWithFileFrame();
+        frame.setVisible(true);// TODO add your handling code here:
+    }//GEN-LAST:event_sendAssetWithFileButtonActionPerformed
+
+    private void createStreamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createStreamButtonActionPerformed
+        CreateStreamFrame frame = new CreateStreamFrame();
+        frame.setVisible(true);
+    }//GEN-LAST:event_createStreamButtonActionPerformed
+
+    private void seeStreambuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeStreambuttonActionPerformed
+        SeeStreamsFrame frame = new SeeStreamsFrame();
+        frame.setVisible(true);
+    }//GEN-LAST:event_seeStreambuttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -133,8 +183,11 @@ public class OverViewFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton createStreamButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton seeStreambutton;
+    private javax.swing.JButton sendAssetWithFileButton;
     // End of variables declaration//GEN-END:variables
 }
