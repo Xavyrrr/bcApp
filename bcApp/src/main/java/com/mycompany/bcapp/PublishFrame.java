@@ -6,8 +6,10 @@
 
 package com.mycompany.bcapp;
 
+import static java.awt.SystemColor.text;
 import java.io.File;
-import java.nio.file.Path;
+import java.io.FileReader;
+import java.util.Scanner;
 import javax.swing.JFileChooser;
 import multichain.object.Stream;
 
@@ -22,6 +24,7 @@ public class PublishFrame extends javax.swing.JFrame {
      */
     Stream s;
     String hex;
+    String text;
     public PublishFrame() {
         initComponents();
     }
@@ -46,6 +49,7 @@ public class PublishFrame extends javax.swing.JFrame {
         filePathField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,6 +73,13 @@ public class PublishFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("jButton3");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -83,9 +94,11 @@ public class PublishFrame extends javax.swing.JFrame {
                             .addComponent(keyField, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
                             .addComponent(filePathField))
                         .addGap(44, 44, 44)
-                        .addComponent(jButton1))
+                        .addComponent(jButton1)
+                        .addGap(38, 38, 38)
+                        .addComponent(jButton3))
                     .addComponent(jButton2))
-                .addContainerGap(531, Short.MAX_VALUE))
+                .addContainerGap(414, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,7 +112,8 @@ public class PublishFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(filePathField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jButton3))
                 .addGap(57, 57, 57)
                 .addComponent(jButton2)
                 .addContainerGap(219, Short.MAX_VALUE))
@@ -115,6 +129,7 @@ public class PublishFrame extends javax.swing.JFrame {
         if(returnVal == JFileChooser.APPROVE_OPTION){
             File file = fileChooser.getSelectedFile();
             filePathField.setText(file.getPath());
+            text = file.getPath();
             hex = fhc.fileToHex(file);
             
         }
@@ -130,6 +145,39 @@ public class PublishFrame extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        try{
+            Scanner scanner = new Scanner(new FileReader(text));
+            String line;
+            
+            while(scanner.hasNextLine()){
+                line=scanner.nextLine();
+                System.out.println("Test: "+ line);
+                String[] results = line.split(",");
+                
+                String soort;
+                String aantal;
+                String waarde;
+                
+                soort = results[0];
+                aantal = results[1];
+                waarde = results[2];
+                
+            String key = soort+aantal+waarde;
+            
+            try{
+                App.multiChainCommand.getStreamCommand().publish(this.s.getName(), key, hex);
+                this.setVisible(false);
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+            }
+        }catch(Exception e){
+            System.out.println("Error: "+e.getMessage());
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,6 +218,7 @@ public class PublishFrame extends javax.swing.JFrame {
     private javax.swing.JTextField filePathField;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField keyField;
