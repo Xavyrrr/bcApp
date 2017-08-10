@@ -14,6 +14,8 @@ import multichain.object.Permission;
 public class App 
 {
     static MultiChainCommand multiChainCommand = new MultiChainCommand("localhost", "6804", "multichainrpc","GB12hoMaU8PJRR7KsdpQFhpXjW3eDRTUZMZDWBDuDVxL");
+    static String signer = "xavyr";
+    
     public static void main( String[] args )
     {
         List<String> result = null;

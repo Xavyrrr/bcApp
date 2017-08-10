@@ -171,6 +171,7 @@ public class SendAssetWithFileFrame extends javax.swing.JFrame {
         fmd.hash = hash;
         fmd.location = path;
         fmd.sender = sender;
+        fmd.assetName = assetName;
         
         BalanceAssetBase b = new BalanceAssetBase();
  

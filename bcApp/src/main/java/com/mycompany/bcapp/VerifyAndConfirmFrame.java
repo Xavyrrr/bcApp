@@ -10,7 +10,10 @@ import NonFrames.FileHexConverter;
 import NonFrames.FileMetadata;
 import NonFrames.Hasher;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFileChooser;
+import multichain.object.BalanceAssetBase;
 
 /**
  *
@@ -71,6 +74,11 @@ public class VerifyAndConfirmFrame extends javax.swing.JFrame {
         isValidField.setEditable(false);
 
         confirmButton.setText("Confirm");
+        confirmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmButtonActionPerformed(evt);
+            }
+        });
 
         uploadButton.setText("Upload");
         uploadButton.addActionListener(new java.awt.event.ActionListener() {
@@ -160,6 +168,38 @@ public class VerifyAndConfirmFrame extends javax.swing.JFrame {
             }            
         }
     }//GEN-LAST:event_uploadButtonActionPerformed
+
+    private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
+        String to = fm.sender;
+        String assetName = fm.assetName;
+        FileMetadata fmd = new FileMetadata();
+        fmd.assetName = assetName;
+        fmd.location = fm.location;
+        fmd.signer = App.signer;
+        
+        String newHash = Hasher.hashString(App.signer);
+        newHash = Hasher.mergeHashes(fm.hash, newHash);
+        
+        fmd.hash = newHash;
+        fmd.signer = App.signer;
+        
+        String hex = new FileHexConverter().stringToHex(fmd.toJson());
+        
+        BalanceAssetBase b = new BalanceAssetBase();
+ 
+        b.setName(assetName);
+        b.setQty(0.1);
+ 
+        List<BalanceAssetBase> bs = new ArrayList<>();
+        bs.add(b);
+        
+        try{
+            App.multiChainCommand.getWalletTransactionCommand().SendWithMetaData(to, bs, hex);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_confirmButtonActionPerformed
 
     /**
      * @param args the command line arguments

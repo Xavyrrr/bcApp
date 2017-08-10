@@ -58,7 +58,7 @@ public class TransactionOverviewFrame extends javax.swing.JFrame {
             rows[i][0] = data.get(i).sender;
             rows[i][1] = data.get(i).location;
             rows[i][2] = data.get(i).hash;
-            rows[i][3] = data.get(i).txid;
+            rows[i][3] = data.get(i).signer;
         }
         
         BalanceTable.setModel(new DefaultTableModel(rows, new String[]{"Sender", "Location", "Hash", "txid"}));

@@ -16,6 +16,19 @@ import java.security.MessageDigest;
  * @author xavyr
  */
 public class Hasher {
+    public static String hashString(String input){
+        try{
+            return new String(MessageDigest.getInstance("MD5").digest(input.getBytes("UTF-8")), "UTF-8");
+        } catch(Exception e){
+            return "";
+        }
+    }
+    
+    public static String mergeHashes(String hash1, String hash2){
+       String input = hash1 + hash2;
+       return hashString(input);
+    }
+    
     private static byte[] createChecksum(File file) throws Exception{
         InputStream fis = new FileInputStream(file);
         

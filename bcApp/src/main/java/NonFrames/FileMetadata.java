@@ -16,8 +16,9 @@ public class FileMetadata {
     public String sender;
     public String location;
     public String hash;
-    public String txid;
     public boolean valid; 
+    public String assetName;
+    public String signer;
     
     public FileMetadata(){
         this.sender = "";
