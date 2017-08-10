@@ -121,7 +121,7 @@ public class MultichainTestParameter {
 	public static void valueIsPositive(String name, float value) throws MultichainException {
 		if (value < 0) {
 			throw new MultichainException(name, "is negative.");
-		} else if (value == 0) {
+		} else if (value == 0 && name != "skip") {
 			throw new MultichainException(name, "is null.");
 		}
 	}

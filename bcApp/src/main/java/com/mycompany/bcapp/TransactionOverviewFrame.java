@@ -6,54 +6,62 @@
 
 package com.mycompany.bcapp;
 
-import NonFrames.AssetBalance;
-import static com.mycompany.bcapp.App.multiChainCommand;
+import NonFrames.FileHexConverter;
+import NonFrames.FileMetadata;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import multichain.object.BalanceAsset;
+import multichain.object.TransactionWallet;
 
 /**
  *
  * @author xavyr
  */
-public class SeeBalanceFrame extends javax.swing.JFrame {
-
-    JTable BalanceTable = new javax.swing.JTable();
-    JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
+public class TransactionOverviewFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form SeeBalanceFrame
+     * Creates new form TransactionOverview
      */
-    public SeeBalanceFrame() {
-        initComponents();
-        List<BalanceAsset> balance = null;
-        try{
-            balance = multiChainCommand.getBalanceCommand().getTotalBalances();
+    
+    JTable BalanceTable = new javax.swing.JTable();
+    JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
+            List<FileMetadata> data = new ArrayList<>();
 
-        }catch(Exception e){
+    public TransactionOverviewFrame() {
+        initComponents();
+        List<TransactionWallet> t = new ArrayList<>();
+        try{
+            t = App.multiChainCommand.getWalletTransactionCommand().listWalletTransaction();
+            t.get(0);
             
-        }
-        List<AssetBalance> balances = new ArrayList<>();
-        
-        for(BalanceAsset ba : balance){
-            AssetBalance ab = new AssetBalance();
-            ab.name = ba.getName();
-            ab.qty = ba.getQty();
-            balances.add(ab);
+        } catch(Exception e){
+            e.printStackTrace();
         }
         
-        Object[][] rows = new Object[balances.size()][2];
-        
-        for(int i = 0; i < balances.size(); i++){
-            rows[i][0] = balances.get(i).name;
-            rows[i][1] = balances.get(i).qty;
+        for(TransactionWallet tw : t){
+            List<String> sdata = tw.getData();
+            if(sdata.size() > 0){
+                String hex = sdata.get(0);
+                String json = new FileHexConverter().hexToString(hex);
+                FileMetadata d = FileMetadata.fromJson(json);
+                if(d.valid){
+                    data.add(d);
+                }
+            }
         }
         
+        String[][] rows = new String[data.size()][4];
         
-        BalanceTable.setModel(new DefaultTableModel(rows, new String[]{"Name", "Quantity"}));
+        for(int i = 0; i < data.size(); i++){
+            rows[i][0] = data.get(i).sender;
+            rows[i][1] = data.get(i).location;
+            rows[i][2] = data.get(i).hash;
+            rows[i][3] = data.get(i).txid;
+        }
+        
+        BalanceTable.setModel(new DefaultTableModel(rows, new String[]{"Sender", "Location", "Hash", "txid"}));
         
         jScrollPane1.setViewportView(BalanceTable);
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -86,17 +94,22 @@ public class SeeBalanceFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        CloseButton = new javax.swing.JButton();
+        openTransactionButton = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Assets:");
-
-        CloseButton.setText("Close");
-        CloseButton.addActionListener(new java.awt.event.ActionListener() {
+        openTransactionButton.setText("Open");
+        openTransactionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CloseButtonActionPerformed(evt);
+                openTransactionButtonActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Close");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -104,31 +117,36 @@ public class SeeBalanceFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(309, Short.MAX_VALUE)
-                .addComponent(CloseButton)
-                .addGap(32, 32, 32))
+                .addContainerGap(508, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
+                    .addComponent(openTransactionButton))
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(openTransactionButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
-                .addComponent(CloseButton)
-                .addGap(20, 20, 20))
+                .addComponent(jButton2)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CloseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseButtonActionPerformed
-        this.setVisible(false);        // TODO add your handling code here:
-    }//GEN-LAST:event_CloseButtonActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+this.setVisible(false);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void openTransactionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openTransactionButtonActionPerformed
+        int selected = BalanceTable.getSelectedRow();
+        FileMetadata fm = this.data.get(selected);
+        VerifyAndConfirmFrame frame = new VerifyAndConfirmFrame(fm);
+        frame.setVisible(true);
+    }//GEN-LAST:event_openTransactionButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -147,26 +165,26 @@ public class SeeBalanceFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SeeBalanceFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TransactionOverviewFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SeeBalanceFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TransactionOverviewFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SeeBalanceFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TransactionOverviewFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SeeBalanceFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TransactionOverviewFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SeeBalanceFrame().setVisible(true);
+                new TransactionOverviewFrame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton CloseButton;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton openTransactionButton;
     // End of variables declaration//GEN-END:variables
 }

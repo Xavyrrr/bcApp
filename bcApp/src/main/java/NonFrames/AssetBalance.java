@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 
-package com.mycompany.bcapp;
+package NonFrames;
 
 /**
  *
  * @author xavyr
  */
 public class AssetBalance {
-    String name;
-    double qty;
+    public String name;
+    public double qty;
 }

@@ -34,6 +34,7 @@ public class OverViewFrame extends javax.swing.JFrame {
         sendAssetWithFileButton = new javax.swing.JButton();
         createStreamButton = new javax.swing.JButton();
         seeStreambutton = new javax.swing.JButton();
+        walletTransactionButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,6 +80,13 @@ public class OverViewFrame extends javax.swing.JFrame {
             }
         });
 
+        walletTransactionButton.setText("Wallet transactions");
+        walletTransactionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                walletTransactionButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,13 +96,16 @@ public class OverViewFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(sendAssetWithFileButton)
                     .addComponent(jButton3)
-                    .addComponent(jButton2)
+                    .addComponent(createStreamButton)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(89, 89, 89)
-                        .addComponent(seeStreambutton))
-                    .addComponent(createStreamButton))
-                .addContainerGap(141, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2))
+                        .addGap(67, 67, 67)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(walletTransactionButton)
+                            .addComponent(seeStreambutton))))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,7 +115,9 @@ public class OverViewFrame extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(seeStreambutton))
                 .addGap(26, 26, 26)
-                .addComponent(jButton2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(walletTransactionButton))
                 .addGap(28, 28, 28)
                 .addComponent(jButton3)
                 .addGap(30, 30, 30)
@@ -146,6 +159,11 @@ public class OverViewFrame extends javax.swing.JFrame {
         SeeStreamsFrame frame = new SeeStreamsFrame();
         frame.setVisible(true);
     }//GEN-LAST:event_seeStreambuttonActionPerformed
+
+    private void walletTransactionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_walletTransactionButtonActionPerformed
+        TransactionOverviewFrame frame = new TransactionOverviewFrame();
+        frame.setVisible(true);
+    }//GEN-LAST:event_walletTransactionButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,5 +207,6 @@ public class OverViewFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton seeStreambutton;
     private javax.swing.JButton sendAssetWithFileButton;
+    private javax.swing.JButton walletTransactionButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,14 +6,20 @@
 
 package com.mycompany.bcapp;
 
+import NonFrames.Hasher;
+import NonFrames.FileHexConverter;
+import NonFrames.FileMetadata;
+import static com.mycompany.bcapp.App.multiChainCommand;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFileChooser;
 import multichain.object.BalanceAsset;
 import multichain.object.BalanceAssetBase;
+import multichain.object.TransactionWallet;
+import multichain.object.TransactionWalletDetailed;
 import multichain.object.queryobjects.AssetParams;
 import multichain.object.queryobjects.CustomParamString;
-
 /**
  *
  * @author xavyr
@@ -23,6 +29,12 @@ public class SendAssetWithFileFrame extends javax.swing.JFrame {
     /**
      * Creates new form SendAssetWithFileFrame
      */
+    private String hash;
+    private String fileName;
+    private String path;
+    private String sender;
+    
+    
     public SendAssetWithFileFrame() {
         initComponents();
 
@@ -33,15 +45,7 @@ public class SendAssetWithFileFrame extends javax.swing.JFrame {
         List<BalanceAssetBase> ab = new ArrayList<>();
         ab.add(v);
         try{
-            
-            File file = new File("C:/Users/xavyr/Desktop/CS and SBB/SBB Internship/School/Daily logs/Week 16/1-8-2017.docx");
-            FileHexConverter conv = new FileHexConverter();
-            String hex = conv.fileToHex(file);
-            
-            conv.writeHexToFile(hex, "C:/Users/xavyr/Desktop/CS and SBB/SBB Internship/School/Daily logs/Week 16/5-8-2017.docx");
-            
-            
-            
+            sender = multiChainCommand.getAddressCommand().getAddresses().get(0);
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -59,6 +63,11 @@ public class SendAssetWithFileFrame extends javax.swing.JFrame {
 
         closeButton = new javax.swing.JButton();
         sendAssetWithFileButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        assetNameField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        filePathField = new javax.swing.JTextField();
+        uploadButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,22 +79,61 @@ public class SendAssetWithFileFrame extends javax.swing.JFrame {
         });
 
         sendAssetWithFileButton.setText("Send asset with file");
+        sendAssetWithFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendAssetWithFileButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Asset:");
+
+        jLabel2.setText("File:");
+
+        uploadButton.setText("Upload");
+        uploadButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uploadButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(sendAssetWithFileButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
-                .addComponent(closeButton)
-                .addGap(37, 37, 37))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(sendAssetWithFileButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
+                        .addComponent(closeButton)
+                        .addGap(37, 37, 37))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(filePathField, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(assetNameField))
+                        .addGap(26, 26, 26)
+                        .addComponent(uploadButton)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(244, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(assetNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(filePathField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(uploadButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(closeButton)
                     .addComponent(sendAssetWithFileButton))
@@ -99,6 +147,56 @@ public class SendAssetWithFileFrame extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_closeButtonActionPerformed
 
+    private void uploadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadButtonActionPerformed
+         JFileChooser fileChooser = new JFileChooser();
+        FileHexConverter fhc = new FileHexConverter();
+        int returnVal = fileChooser.showOpenDialog(fileChooser);
+        if(returnVal == JFileChooser.APPROVE_OPTION){
+            File file = fileChooser.getSelectedFile();
+            filePathField.setText(file.getPath());
+            fileName = file.getName();
+            try{
+             hash = Hasher.getMD5Checksum(file);
+            } catch(Exception e){
+                e.printStackTrace();
+            }            
+        }
+    }//GEN-LAST:event_uploadButtonActionPerformed
+
+    private void sendAssetWithFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendAssetWithFileButtonActionPerformed
+        String assetName = assetNameField.getText();
+        String path = "C:\\" + fileName;
+        
+        FileMetadata fmd = new FileMetadata();
+        fmd.hash = hash;
+        fmd.location = path;
+        fmd.sender = sender;
+        
+        BalanceAssetBase b = new BalanceAssetBase();
+ 
+        b.setName(assetName);
+        b.setQty(0.1);
+ 
+        List<BalanceAssetBase> bs = new ArrayList<>();
+        bs.add(b);
+        FileHexConverter fhx = new FileHexConverter();
+        String hex = fhx.stringToHex(fmd.toJson());
+        String to = "1JqNi2Fhp9QK4HQsj1DzENzW2NFFR4fE2uHUYt";
+        
+        try{
+            App.multiChainCommand.getWalletTransactionCommand().SendWithMetaData(to, bs, hex);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_sendAssetWithFileButtonActionPerformed
+
+    
+    private String fileExtension(String path){
+        String file = path.substring(path.lastIndexOf("\\"));
+        String ext = file.substring(file.indexOf("."));
+        
+        return ext;
+    }
     /**
      * @param args the command line arguments
      */
@@ -135,7 +233,12 @@ public class SendAssetWithFileFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField assetNameField;
     private javax.swing.JButton closeButton;
+    private javax.swing.JTextField filePathField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton sendAssetWithFileButton;
+    private javax.swing.JButton uploadButton;
     // End of variables declaration//GEN-END:variables
 }

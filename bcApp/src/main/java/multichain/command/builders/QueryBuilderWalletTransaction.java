@@ -7,6 +7,8 @@
  */
 package multichain.command.builders;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.util.List;
 
 import multichain.command.MultichainException;
@@ -345,7 +347,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 			throws MultichainException {
 		MultichainTestParameter.valueIsPositive("count", count);
 		MultichainTestParameter.valueIsPositive("skip", skip);
-		return execute(CommandEnum.LISTWALLETTRANSACTIONS, String.valueOf(count), String.valueOf(skip),
+		return execute(CommandEnum.LISTWALLETTRANSACTIONS, Integer.parseInt(String.valueOf(count)), Integer.parseInt(String.valueOf(skip)),
 				includeWatchonly, verbose);
 	}
 
@@ -559,8 +561,10 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 		for (BalanceAssetBase asset : assets) {
 			asset.isFilled();
 		}
+                
+                BalanceAssetBase b = assets.get(0);
 
-		return execute(CommandEnum.SENDWITHMETADATA, address, formatJson(assets), hexMetaData);
+		return execute(CommandEnum.SENDWITHMETADATA, address, new JsonParser().parse("{\"" + b.getName() + "\":" + b.getQty() + "}") /*formatJson(assets)*/, hexMetaData);
 	}
 
 	/**

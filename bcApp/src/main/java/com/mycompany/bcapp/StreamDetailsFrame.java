@@ -6,6 +6,7 @@
 
 package com.mycompany.bcapp;
 
+import NonFrames.FileHexConverter;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
@@ -158,7 +159,8 @@ JTable StreamTable = new javax.swing.JTable();
         List<StreamKeyItem> items = new ArrayList<>();
         String key = this.keys.get(StreamTable.getSelectedRow()).getKey();
         try{
-            items = App.multiChainCommand.getStreamCommand().listStreamKeyItems(this.stream.getName(), key);
+            String name = this.stream.getName();
+            items = App.multiChainCommand.getStreamCommand().listStreamKeyItems(name, key);
             String filename = JOptionPane.showInputDialog(this, "Filename:");
             String desktop = System.getProperty("user.home");
             String path = desktop + "/" + filename + ".txt";

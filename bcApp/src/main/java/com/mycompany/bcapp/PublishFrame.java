@@ -6,6 +6,7 @@
 
 package com.mycompany.bcapp;
 
+import NonFrames.FileHexConverter;
 import static java.awt.SystemColor.text;
 import java.io.File;
 import java.io.FileReader;

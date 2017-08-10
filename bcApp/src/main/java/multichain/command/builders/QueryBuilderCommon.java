@@ -172,6 +172,7 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 				entityValues.put("params", paramList);
 
 				// Generate the entity and initialize request
+                                String t = formatJson(entityValues);
 				StringEntity rpcEntity = new StringEntity(formatJson(entityValues));
 				httppost.setEntity(rpcEntity);
 
