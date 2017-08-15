@@ -18,7 +18,19 @@ import java.security.MessageDigest;
 public class Hasher {
     public static String hashString(String input){
         try{
-            return new String(MessageDigest.getInstance("MD5").digest(input.getBytes("UTF-8")), "UTF-8");
+            MessageDigest complete = MessageDigest.getInstance("MD5");
+            complete.update(input.getBytes("UTF-8"), 0, input.getBytes("UTF-8").length);
+            
+            byte[] b =  complete.digest();
+            
+            String result = "";
+        
+            for(int i = 0; i < b.length; i++){
+                result += Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1);
+            }
+
+            return result;
+            //return new String(MessageDigest.getInstance("MD5").digest(input.getBytes("UTF-8")), "UTF-8");
         } catch(Exception e){
             return "";
         }
@@ -35,7 +47,6 @@ public class Hasher {
         byte[] buffer = new byte[1024];
         MessageDigest complete = MessageDigest.getInstance("MD5");
         int numRead;
-        
         do{
             numRead = fis.read(buffer);
             if(numRead > 0){
