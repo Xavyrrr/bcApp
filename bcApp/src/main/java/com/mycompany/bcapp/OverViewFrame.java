@@ -6,6 +6,14 @@
 
 package com.mycompany.bcapp;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.File;
+import java.net.URL;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+
 /**
  *
  * @author xavyr
@@ -17,6 +25,20 @@ public class OverViewFrame extends javax.swing.JFrame {
      */
     public OverViewFrame() {
         initComponents();
+        this.setSize(640, 480);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        ImageIcon ic = new ImageIcon("C:\\Users\\xavyr\\Documents\\NetBeansProjects\\bcApp\\bcApp\\src\\main\\java\\com\\mycompany\\bcapp\\icon.png");
+        this.setIconImage(ic.getImage());
+                
+//this.setIconImage(new );
+        /*Image icon = null;
+        try{
+            icon = ImageIO.read(new File(getClass().getResource("icon.png").toExternalForm()));
+        } catch(Exception e){
+            
+        }
+        
+        this.setIconImage(icon);*/
     }
 
     /**
@@ -32,13 +54,14 @@ public class OverViewFrame extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         sendAssetWithFileButton = new javax.swing.JButton();
-        createStreamButton = new javax.swing.JButton();
-        seeStreambutton = new javax.swing.JButton();
         walletTransactionButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Overview");
+        setPreferredSize(new java.awt.Dimension(640, 480));
+        setResizable(false);
 
-        jButton1.setText("Balance");
+        jButton1.setText("Asset balance");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -66,20 +89,6 @@ public class OverViewFrame extends javax.swing.JFrame {
             }
         });
 
-        createStreamButton.setText("Create streams");
-        createStreamButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createStreamButtonActionPerformed(evt);
-            }
-        });
-
-        seeStreambutton.setText("See streams");
-        seeStreambutton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                seeStreambuttonActionPerformed(evt);
-            }
-        });
-
         walletTransactionButton.setText("Wallet transactions");
         walletTransactionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,37 +103,33 @@ public class OverViewFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sendAssetWithFileButton)
-                    .addComponent(jButton3)
-                    .addComponent(createStreamButton)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(sendAssetWithFileButton)
+                        .addContainerGap(265, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))
-                        .addGap(67, 67, 67)
+                            .addComponent(jButton2)
+                            .addComponent(jButton3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(walletTransactionButton)
-                            .addComponent(seeStreambutton))))
-                .addContainerGap(107, Short.MAX_VALUE))
+                            .addComponent(jButton1))
+                        .addGap(18, 18, 18))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(seeStreambutton))
+                    .addComponent(walletTransactionButton)
+                    .addComponent(jButton3))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(walletTransactionButton))
-                .addGap(28, 28, 28)
-                .addComponent(jButton3)
-                .addGap(30, 30, 30)
+                    .addComponent(jButton1))
+                .addGap(18, 18, 18)
                 .addComponent(sendAssetWithFileButton)
-                .addGap(29, 29, 29)
-                .addComponent(createStreamButton)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
 
         pack();
@@ -149,16 +154,6 @@ public class OverViewFrame extends javax.swing.JFrame {
         SendAssetWithFileFrame frame = new SendAssetWithFileFrame();
         frame.setVisible(true);// TODO add your handling code here:
     }//GEN-LAST:event_sendAssetWithFileButtonActionPerformed
-
-    private void createStreamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createStreamButtonActionPerformed
-        CreateStreamFrame frame = new CreateStreamFrame();
-        frame.setVisible(true);
-    }//GEN-LAST:event_createStreamButtonActionPerformed
-
-    private void seeStreambuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeStreambuttonActionPerformed
-        SeeStreamsFrame frame = new SeeStreamsFrame();
-        frame.setVisible(true);
-    }//GEN-LAST:event_seeStreambuttonActionPerformed
 
     private void walletTransactionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_walletTransactionButtonActionPerformed
         TransactionOverviewFrame frame = new TransactionOverviewFrame();
@@ -201,11 +196,9 @@ public class OverViewFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton createStreamButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton seeStreambutton;
     private javax.swing.JButton sendAssetWithFileButton;
     private javax.swing.JButton walletTransactionButton;
     // End of variables declaration//GEN-END:variables

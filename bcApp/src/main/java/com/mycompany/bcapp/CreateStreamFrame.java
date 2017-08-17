@@ -6,6 +6,8 @@
 
 package com.mycompany.bcapp;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import multichain.object.Stream;
 
 /**
@@ -19,6 +21,10 @@ public class CreateStreamFrame extends javax.swing.JFrame {
      */
     public CreateStreamFrame() {
         initComponents();
+                this.setSize(640, 480);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+ImageIcon ic = new ImageIcon("C:\\Users\\xavyr\\Documents\\NetBeansProjects\\bcApp\\bcApp\\src\\main\\java\\com\\mycompany\\bcapp\\icon.png");
+        this.setIconImage(ic.getImage());
     }
 
     /**
@@ -36,6 +42,7 @@ public class CreateStreamFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Create stream");
 
         closeButton.setText("Close");
         closeButton.addActionListener(new java.awt.event.ActionListener() {
@@ -44,7 +51,7 @@ public class CreateStreamFrame extends javax.swing.JFrame {
             }
         });
 
-        CreateStreamButton.setText("Create");
+        CreateStreamButton.setText("Create stream");
         CreateStreamButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CreateStreamButtonActionPerformed(evt);
@@ -90,7 +97,7 @@ public class CreateStreamFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
-this.setVisible(false);        // TODO add your handling code here:
+        this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_closeButtonActionPerformed
 
     private void CreateStreamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateStreamButtonActionPerformed

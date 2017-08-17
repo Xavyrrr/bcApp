@@ -8,8 +8,11 @@ package com.mycompany.bcapp;
 
 import NonFrames.FileHexConverter;
 import NonFrames.FileMetadata;
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -31,6 +34,10 @@ public class TransactionOverviewFrame extends javax.swing.JFrame {
 
     public TransactionOverviewFrame() {
         initComponents();
+        this.setSize(640, 480);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+ImageIcon ic = new ImageIcon("C:\\Users\\xavyr\\Documents\\NetBeansProjects\\bcApp\\bcApp\\src\\main\\java\\com\\mycompany\\bcapp\\icon.png");
+        this.setIconImage(ic.getImage());
         List<TransactionWallet> t = new ArrayList<>();
         try{
             t = App.multiChainCommand.getWalletTransactionCommand().listWalletTransaction();
@@ -63,14 +70,18 @@ public class TransactionOverviewFrame extends javax.swing.JFrame {
         }
         
         BalanceTable.setModel(new DefaultTableModel(rows, new String[]{"Sender", "Location", "Hash", "txid"}));
-        
-        jScrollPane1.setViewportView(BalanceTable);
+        //BalanceTable.setSize(jPanel1.getSize());
+        jScrollPane1 = new JScrollPane(BalanceTable);
+       // BalanceTable.set
+        jScrollPane2.setViewportView(BalanceTable);
+
+       /* jScrollPane1.setViewportView(BalanceTable);
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addContainerGap(20, 20)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -78,11 +89,11 @@ public class TransactionOverviewFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-        );
+        );*/
         
     }
 
@@ -97,8 +108,11 @@ public class TransactionOverviewFrame extends javax.swing.JFrame {
 
         openTransactionButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Transaction overview");
 
         openTransactionButton.setText("Open");
         openTransactionButton.addActionListener(new java.awt.event.ActionListener() {
@@ -114,24 +128,36 @@ public class TransactionOverviewFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Transactions in wallet:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(508, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(openTransactionButton))
-                .addGap(25, 25, 25))
+                    .addComponent(jScrollPane2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(openTransactionButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 444, Short.MAX_VALUE)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(openTransactionButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(openTransactionButton))
                 .addContainerGap())
         );
 
@@ -139,7 +165,7 @@ public class TransactionOverviewFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-this.setVisible(false);        // TODO add your handling code here:
+        this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void openTransactionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openTransactionButtonActionPerformed
@@ -186,6 +212,8 @@ this.setVisible(false);        // TODO add your handling code here:
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton openTransactionButton;
     // End of variables declaration//GEN-END:variables
 }

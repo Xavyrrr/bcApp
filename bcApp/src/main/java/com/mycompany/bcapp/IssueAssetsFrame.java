@@ -6,6 +6,9 @@
 
 package com.mycompany.bcapp;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+
 /**
  *
  * @author xavyr
@@ -17,6 +20,10 @@ public class IssueAssetsFrame extends javax.swing.JFrame {
      */
     public IssueAssetsFrame() {
         initComponents();
+                this.setSize(640, 480);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+ImageIcon ic = new ImageIcon("C:\\Users\\xavyr\\Documents\\NetBeansProjects\\bcApp\\bcApp\\src\\main\\java\\com\\mycompany\\bcapp\\icon.png");
+        this.setIconImage(ic.getImage());
     }
 
     /**
@@ -38,6 +45,7 @@ public class IssueAssetsFrame extends javax.swing.JFrame {
         closeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Issue assets");
 
         jLabel1.setText("Asset name:");
 
@@ -51,7 +59,7 @@ public class IssueAssetsFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Smallest unit:");
 
-        issueButton.setText("Issue");
+        issueButton.setText("Create asset");
         issueButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 issueButtonActionPerformed(evt);
@@ -83,7 +91,7 @@ public class IssueAssetsFrame extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(issueButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
                         .addComponent(closeButton)
                         .addGap(36, 36, 36))))
         );
@@ -128,11 +136,11 @@ public class IssueAssetsFrame extends javax.swing.JFrame {
         } catch(Exception e){
             e.printStackTrace();
         }
-        this.setVisible(false);
+        this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_issueButtonActionPerformed
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
-        this.setVisible(false);
+        this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_closeButtonActionPerformed
 
     /**

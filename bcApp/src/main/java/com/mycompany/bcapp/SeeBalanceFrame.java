@@ -10,6 +10,8 @@ import NonFrames.AssetBalance;
 import static com.mycompany.bcapp.App.multiChainCommand;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -29,6 +31,10 @@ public class SeeBalanceFrame extends javax.swing.JFrame {
      */
     public SeeBalanceFrame() {
         initComponents();
+                this.setSize(640, 480);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+ImageIcon ic = new ImageIcon("C:\\Users\\xavyr\\Documents\\NetBeansProjects\\bcApp\\bcApp\\src\\main\\java\\com\\mycompany\\bcapp\\icon.png");
+        this.setIconImage(ic.getImage());
         List<BalanceAsset> balance = null;
         try{
             balance = multiChainCommand.getBalanceCommand().getTotalBalances();
@@ -55,7 +61,8 @@ public class SeeBalanceFrame extends javax.swing.JFrame {
         
         BalanceTable.setModel(new DefaultTableModel(rows, new String[]{"Name", "Quantity"}));
         
-        jScrollPane1.setViewportView(BalanceTable);
+        jScrollPane2.setViewportView(BalanceTable);
+     /*   jScrollPane1.setViewportView(BalanceTable);
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -73,7 +80,7 @@ public class SeeBalanceFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-        );
+        );*/
         
     }
 
@@ -88,8 +95,10 @@ public class SeeBalanceFrame extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         CloseButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Balance overview");
 
         jLabel1.setText("Assets:");
 
@@ -106,19 +115,26 @@ public class SeeBalanceFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(309, Short.MAX_VALUE)
-                .addComponent(CloseButton)
-                .addGap(32, 32, 32))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 291, Short.MAX_VALUE)
+                                .addComponent(CloseButton)))
+                        .addGap(32, 32, 32))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(CloseButton)
                 .addGap(20, 20, 20))
         );
@@ -127,7 +143,7 @@ public class SeeBalanceFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CloseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseButtonActionPerformed
-        this.setVisible(false);        // TODO add your handling code here:
+        this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_CloseButtonActionPerformed
 
     /**
@@ -168,5 +184,6 @@ public class SeeBalanceFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CloseButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

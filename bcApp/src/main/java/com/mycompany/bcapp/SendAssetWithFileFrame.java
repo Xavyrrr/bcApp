@@ -13,7 +13,9 @@ import static com.mycompany.bcapp.App.multiChainCommand;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import multichain.object.BalanceAsset;
 import multichain.object.BalanceAssetBase;
 import multichain.object.TransactionWallet;
@@ -37,18 +39,18 @@ public class SendAssetWithFileFrame extends javax.swing.JFrame {
     
     public SendAssetWithFileFrame() {
         initComponents();
-
+        this.setSize(640, 480);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+ImageIcon ic = new ImageIcon("C:\\Users\\xavyr\\Documents\\NetBeansProjects\\bcApp\\bcApp\\src\\main\\java\\com\\mycompany\\bcapp\\icon.png");
+        this.setIconImage(ic.getImage());
         CustomParamString x = new CustomParamString();
         BalanceAssetBase v = new BalanceAssetBase();
         v.setName("test");
         v.setQty(1);
         List<BalanceAssetBase> ab = new ArrayList<>();
         ab.add(v);
-        try{
-            sender = multiChainCommand.getAddressCommand().getAddresses().get(0);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+        sender = App.address;
+        
         System.out.println("success");
     }
 
@@ -70,6 +72,7 @@ public class SendAssetWithFileFrame extends javax.swing.JFrame {
         uploadButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Send asset with file");
 
         closeButton.setText("Close");
         closeButton.addActionListener(new java.awt.event.ActionListener() {
@@ -85,11 +88,11 @@ public class SendAssetWithFileFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Asset:");
+        jLabel1.setText("Asset name:");
 
         jLabel2.setText("File:");
 
-        uploadButton.setText("Upload");
+        uploadButton.setText("Select");
         uploadButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 uploadButtonActionPerformed(evt);
@@ -144,7 +147,7 @@ public class SendAssetWithFileFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
-        this.setVisible(false);
+        this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_closeButtonActionPerformed
 
     private void uploadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadButtonActionPerformed
@@ -170,7 +173,7 @@ public class SendAssetWithFileFrame extends javax.swing.JFrame {
         FileMetadata fmd = new FileMetadata();
         fmd.hash = hash;
         fmd.location = path;
-        fmd.sender = sender;
+        fmd.sender = this.sender;
         fmd.assetName = assetName;
         
         BalanceAssetBase b = new BalanceAssetBase();
@@ -189,6 +192,8 @@ public class SendAssetWithFileFrame extends javax.swing.JFrame {
         }catch(Exception e){
             e.printStackTrace();
         }
+                this.dispose();        // TODO add your handling code here:
+
     }//GEN-LAST:event_sendAssetWithFileButtonActionPerformed
 
     

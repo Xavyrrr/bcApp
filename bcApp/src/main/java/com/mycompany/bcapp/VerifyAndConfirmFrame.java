@@ -12,7 +12,9 @@ import NonFrames.Hasher;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import multichain.object.BalanceAssetBase;
 
 /**
@@ -28,11 +30,21 @@ public class VerifyAndConfirmFrame extends javax.swing.JFrame {
     String uploadHash;
     FileMetadata fm;
     public VerifyAndConfirmFrame() {
+
         initComponents();
+                        this.setSize(640, 480);
+ImageIcon ic = new ImageIcon("C:\\Users\\xavyr\\Documents\\NetBeansProjects\\bcApp\\bcApp\\src\\main\\java\\com\\mycompany\\bcapp\\icon.png");
+        this.setIconImage(ic.getImage());
     }
 
-    VerifyAndConfirmFrame(FileMetadata fm) {
+    public VerifyAndConfirmFrame(FileMetadata fm) {
         initComponents();
+        this.setSize(640, 480);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //                ImageIcon ic = new ImageIcon("C:\\Users\\xavyr\\Documents\\NetBeansProjects\\bcApp\\bcApp\\src\\main\\java\\com\\mycompany\\bcapp\\icon.png");
+
+                ImageIcon ic = new ImageIcon("C:\\Users\\xavyr\\Documents\\NetBeansProjects\\bcApp\\bcApp\\src\\main\\java\\com\\mycompany\\bcapp\\icon.png");
+        this.setIconImage(ic.getImage());
         filePathField.setText(fm.location);
         confirmButton.setEnabled(false);
         this.fm = fm;
@@ -55,16 +67,18 @@ public class VerifyAndConfirmFrame extends javax.swing.JFrame {
         isValidField = new javax.swing.JTextField();
         confirmButton = new javax.swing.JButton();
         uploadButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Verify and confirm file");
 
-        jLabel1.setText("File path:");
+        jLabel1.setText("File location:");
 
         filePathField.setEditable(false);
 
         jLabel2.setText("File to verify:");
 
-        verifyButton.setText("Verify");
+        verifyButton.setText("Verify file");
         verifyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 verifyButtonActionPerformed(evt);
@@ -73,17 +87,24 @@ public class VerifyAndConfirmFrame extends javax.swing.JFrame {
 
         isValidField.setEditable(false);
 
-        confirmButton.setText("Confirm");
+        confirmButton.setText("Send confirmation");
         confirmButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmButtonActionPerformed(evt);
             }
         });
 
-        uploadButton.setText("Upload");
+        uploadButton.setText("Select file");
         uploadButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 uploadButtonActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Close");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -96,12 +117,10 @@ public class VerifyAndConfirmFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(fileToVerifyField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                         .addComponent(uploadButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(verifyButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(isValidField, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(verifyButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -111,6 +130,10 @@ public class VerifyAndConfirmFrame extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(confirmButton))
                         .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(isValidField, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -129,7 +152,9 @@ public class VerifyAndConfirmFrame extends javax.swing.JFrame {
                     .addComponent(isValidField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(uploadButton))
                 .addGap(44, 44, 44)
-                .addComponent(confirmButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(confirmButton)
+                    .addComponent(jButton1))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
 
@@ -198,8 +223,13 @@ public class VerifyAndConfirmFrame extends javax.swing.JFrame {
         }catch(Exception e){
             e.printStackTrace();
         }
-        
+                this.dispose();        // TODO add your handling code here:
+
     }//GEN-LAST:event_confirmButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -241,6 +271,7 @@ public class VerifyAndConfirmFrame extends javax.swing.JFrame {
     private javax.swing.JTextField filePathField;
     private javax.swing.JTextField fileToVerifyField;
     private javax.swing.JTextField isValidField;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton uploadButton;

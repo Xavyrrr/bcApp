@@ -8,6 +8,8 @@ package com.mycompany.bcapp;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import multichain.object.BalanceAsset;
 import multichain.object.BalanceAssetBase;
 
@@ -22,7 +24,10 @@ public class SendAssetFrame extends javax.swing.JFrame {
      */
     public SendAssetFrame() {
         initComponents();
-        
+                this.setSize(640, 480);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+ImageIcon ic = new ImageIcon("C:\\Users\\xavyr\\Documents\\NetBeansProjects\\bcApp\\bcApp\\src\\main\\java\\com\\mycompany\\bcapp\\icon.png");
+        this.setIconImage(ic.getImage());
     }
 
     /**
@@ -44,8 +49,9 @@ public class SendAssetFrame extends javax.swing.JFrame {
         closeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Send asset");
 
-        jLabel1.setText("To:");
+        jLabel1.setText("Receiver address:");
 
         addressComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1NwStSFQQTpHtvMEYLA4gxA63zsfj2Ct34hn3h", "1JqNi2Fhp9QK4HQsj1DzENzW2NFFR4fE2uHUYt" }));
         addressComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -153,11 +159,11 @@ public class SendAssetFrame extends javax.swing.JFrame {
            e.printStackTrace();
        }
        
-       this.setVisible(false);
+        this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_sendAssetActionPerformed
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
-        this.setVisible(false);
+        this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_closeButtonActionPerformed
 
     /**
