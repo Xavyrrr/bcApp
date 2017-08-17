@@ -19,6 +19,7 @@ public class FileMetadata {
     public boolean valid; 
     public String assetName;
     public String signer;
+    public String txid;
     
     public FileMetadata(){
         this.sender = "";

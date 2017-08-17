@@ -46,6 +46,7 @@ public class TransactionOverviewFrame extends javax.swing.JFrame {
                 String hex = sdata.get(0);
                 String json = new FileHexConverter().hexToString(hex);
                 FileMetadata d = FileMetadata.fromJson(json);
+                d.txid = tw.getTxid();
                 if(d.valid){
                     data.add(d);
                 }
@@ -58,7 +59,7 @@ public class TransactionOverviewFrame extends javax.swing.JFrame {
             rows[i][0] = data.get(i).sender;
             rows[i][1] = data.get(i).location;
             rows[i][2] = data.get(i).hash;
-            rows[i][3] = data.get(i).signer;
+            rows[i][3] = data.get(i).txid;
         }
         
         BalanceTable.setModel(new DefaultTableModel(rows, new String[]{"Sender", "Location", "Hash", "txid"}));
